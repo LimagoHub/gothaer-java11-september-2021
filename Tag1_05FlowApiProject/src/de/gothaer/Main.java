@@ -15,13 +15,16 @@ public class Main {
 	private void run() throws Exception{
 		final List<String> liste = List.of("1","2","drei","4");
 		
-		EndSubscriber<String> subscriber = new EndSubscriber<>();
+		EndSubscriber<Integer> subscriber = new EndSubscriber<>();
+		
+		Transformer<String, Integer> transformer = new Transformer<String, Integer>(Integer::valueOf);
+		transformer.subscribe(subscriber);
 		
 		ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		
 		try (SubmissionPublisher<String> publisher = new SubmissionPublisher<>(service, 256)) {
 			
-			publisher.subscribe(subscriber);
+			publisher.subscribe(transformer);
 			liste.forEach(publisher::submit);
 			
 		}

@@ -16,6 +16,14 @@ public class EndSubscriber<T> implements Subscriber<T>{
 
 	@Override
 	public void onNext(T item) {
+		
+//		try {
+//			Integer.valueOf(item.toString());
+//		} catch (NumberFormatException e) {
+//			
+//			e.printStackTrace();
+//		}
+		System.out.println(item.getClass().getSimpleName());
 		System.out.println("Received: " + item);
 		subscription.request(1);
 	}
