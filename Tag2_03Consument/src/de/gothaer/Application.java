@@ -6,10 +6,10 @@ public class Application {
 
 	public static void main(String[] args) {
 
-		EndSubscriber<Character> subscriber = new EndSubscriber<Character>();
-		try(CharacterPublisher publisher = CharacterPublisher.create()) {
 		
-			publisher.subscribe(subscriber);
+		try(var publisher = CharacterPublisher.create(Schwein::new)) {
+		
+			publisher.subscribe(new EndSubscriber<>());
 			
 			publisher.start();
 			
@@ -18,4 +18,28 @@ public class Application {
 
 	}
 
+}
+
+interface Liste<T> {
+	void append(T t);
+	T get();
+	boolean remove();
+	default boolean removeAll() {
+		if(isEmpty()) return false;
+		while(remove());
+		return true;
+	}
+	
+	boolean update();
+	boolean moveNext();
+	boolean movePrev();
+	default boolean moveFirst() {
+		if(isEmpty()) return false;
+		while(movePrev());
+		return true;
+	}
+	boolean moveLaste();
+	boolean isEmpty();
+	boolean isBOL();
+	boolean isEOL();
 }

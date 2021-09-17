@@ -5,7 +5,6 @@ module characterPublisher {
 	exports de.gothaer.publisher;
 	requires StringProvider;
 	
-	uses CharacterPublisher;
-	provides CharacterPublisher with CharacterPublisherImpl;
+	
 	
 }

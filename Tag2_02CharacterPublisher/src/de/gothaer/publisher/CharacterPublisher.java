@@ -2,6 +2,9 @@ package de.gothaer.publisher;
 
 import java.util.ServiceLoader;
 import java.util.concurrent.Flow.Publisher;
+import java.util.function.Supplier;
+
+import de.gothaer.publisher.impl.CharacterPublisherImpl;
 
 public interface CharacterPublisher extends Publisher<Character>, AutoCloseable{
 	
@@ -11,8 +14,8 @@ public interface CharacterPublisher extends Publisher<Character>, AutoCloseable{
 	
 	void awaitTermination();
 	
-	static CharacterPublisher create() {
-		return ServiceLoader.load(CharacterPublisher.class).findFirst().get();
+	static <T> CharacterPublisher create(Supplier<T> supplier) {
+		return new CharacterPublisherImpl(supplier);
 	}
 
 }

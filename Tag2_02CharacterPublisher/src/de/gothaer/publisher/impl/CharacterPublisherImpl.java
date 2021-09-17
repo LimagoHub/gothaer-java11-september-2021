@@ -3,6 +3,7 @@ package de.gothaer.publisher.impl;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.SubmissionPublisher;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import de.gothaer.provider.StringSupplier;
 import de.gothaer.publisher.CharacterPublisher;
@@ -13,12 +14,9 @@ public class CharacterPublisherImpl extends SubmissionPublisher<Character> imple
 	
 	
 	
-	public CharacterPublisherImpl() {
-		this.toSend = StringSupplier.create().get();
-		
+	public <T> CharacterPublisherImpl(Supplier<T> supplier) {
+		toSend = supplier.get().toString();
 	}
-
-
 
 	@Override
 	public void start() {
