@@ -1,0 +1,4 @@
+module consument {
+	
+	requires characterPublisher;
+}
